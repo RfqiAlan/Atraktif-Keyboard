@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Tester</title>
+    
+    <style>
+        body {
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .info-panel {
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .event-info {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+         > span {
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 60px;  
+            font-weight: bold;
+            color: #EB5B00
+         }
+        }
+
+
+        .keyboard {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+            gap: 4px;
+        }
+
+        .key {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            min-width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+
+        .key.pressed {
+            background: coral;
+            color: white;
+            transform: translateY(2px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .key.special {
+            min-width: 50px;
+        }
+
+        .key.space {
+            min-width: 200px;
+        }
+
+        .keycast {
+            height: 40px;
+        }
+
+        #textInput {
+            width: 80%;
+            max-width: 800px;
+            padding: 10px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .prevented {
+            color: #ff3b30;
+        }
+
+        #keyPressed {
+            transition: opacity 1s ease-in-out;
+        }
+
+        #keyPressed.hidden {
+            opacity: 0;
+        }
+        .top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            gap: 8px;
+            margin: 16px;
+            
+        }
+        .top-bar a {
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .top-bar img {
+            border-radius: 50%;
+        }
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+        .title {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        footer p {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        footer a {
+            text-decoration: none;
+            color: #333;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1 class="title">RifqiAlan_</h1>
+        <a href="https://github.com/azhariemuhammad/keycraft" target="_blank">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        </a>
+    </div>  
+    <div class="info-panel">
+        <div class="event-info">
+            <span id="keyPressed" class="keycast"></span> 
+        </div>      
+    </div>
+
+    <input type="text" id="textInput" placeholder="Type here to test (some special keys are prevented)" style="visibility: hidden;" />
+
+    <div class="keyboard">
+        <div class="row">
+            <div class="key" data-key="Escape">esc</div>
+            <div class="key" data-key="F1">F1</div>
+            <div class="key" data-key="F2">F2</div>
+            <div class="key" data-key="F3">F3</div>
+            <div class="key" data-key="F4">F4</div>
+            <div class="key" data-key="F5">F5</div>
+            <div class="key" data-key="F6">F6</div>
+            <div class="key" data-key="F7">F7</div>
+            <div class="key" data-key="F8">F8</div>
+            <div class="key" data-key="F9">F9</div>
+            <div class="key" data-key="F10">F10</div>
+            <div class="key" data-key="F11">F11</div>
+            <div class="key" data-key="F12">F12</div>
+        </div>
+
+        <div class="row">
+            <div class="key" data-key="`">`</div>
+            <div class="key" data-key="1">1</div>
+            <div class="key" data-key="2">2</div>
+            <div class="key" data-key="3">3</div>
+            <div class="key" data-key="4">4</div>
+            <div class="key" data-key="5">5</div>
+            <div class="key" data-key="6">6</div>
+            <div class="key" data-key="7">7</div>
+            <div class="key" data-key="8">8</div>
+            <div class="key" data-key="9">9</div>
+            <div class="key" data-key="0">0</div>
+            <div class="key" data-key="-">-</div>
+            <div class="key" data-key="=">=</div>
+            <div class="key special" data-key="Backspace">⌫</div>
+        </div>
+
+        <div class="row">
+            <div class="key special" data-key="Tab">Tab</div>
+            <div class="key" data-key="q">Q</div>
+            <div class="key" data-key="w">W</div>
+            <div class="key" data-key="e">E</div>
+            <div class="key" data-key="r">R</div>
+            <div class="key" data-key="t">T</div>
+            <div class="key" data-key="y">Y</div>
+            <div class="key" data-key="u">U</div>
+            <div class="key" data-key="i">I</div>
+            <div class="key" data-key="o">O</div>
+            <div class="key" data-key="p">P</div>
+            <div class="key" data-key="[">[</div>
+            <div class="key" data-key="]">]</div>
+            <div class="key" data-key="\\">\\</div>
+        </div>
+
+        <div class="row">
+            <div class="key special" data-key="CapsLock">Caps</div>
+            <div class="key" data-key="a">A</div>
+            <div class="key" data-key="s">S</div>
+            <div class="key" data-key="d">D</div>
+            <div class="key" data-key="f">F</div>
+            <div class="key" data-key="g">G</div>
+            <div class="key" data-key="h">H</div>
+            <div class="key" data-key="j">J</div>
+            <div class="key" data-key="k">K</div>
+            <div class="key" data-key="l">L</div>
+            <div class="key" data-key=";">;</div>
+            <div class="key" data-key="'">'</div>
+            <div class="key special" data-key="Enter">⏎</div>
+        </div>
+
+        <div class="row">
+            <div class="key special" data-key="ShiftLeft">⇧</div>
+            <div class="key" data-key="z">Z</div>
+            <div class="key" data-key="x">X</div>
+            <div class="key" data-key="c">C</div>
+            <div class="key" data-key="v">V</div>
+            <div class="key" data-key="b">B</div>
+            <div class="key" data-key="n">N</div>
+            <div class="key" data12oih-key="m">M</div>
+            <div class="key" data-key=",">,</div>
+            <div class="key" data-key=".">.</div>
+            <div class="key" data-key="/">/</div>
+            <div class="key special" data-key="ShiftRight">⇧</div>
+        </div>
+
+        <div class="row">
+            <div class="key special" data-key="ControlLeft">ctrl</div>
+            <div class="key special" data-key="AltLeft">alt</div>
+            <div class="key special" data-key="MetaLeft">⌘</div>
+            <div class="key space" data-key="Space">space</div>
+            <div class="key special" data-key="MetaRight">⌘</div>
+            <div class="key special" data-key="AltRight">alt</div>
+            <div class="key special" data-key="ControlRight">ctrl</div>
+        </div>
+        </div>  
+
+
+        <footer>
+            <p>Made by <a href="https://x.com/azharieazharou" target="_blank">Rifqi Alan Maulana</a></p>
+        </footer>
+    <script src="Keyboard.js"></script>
+</body>
+</html>
